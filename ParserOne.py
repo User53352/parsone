@@ -2,24 +2,16 @@ hp@hp-HP-2000-Notebook-PC:~$ python3
 Python 3.8.10 (default, Jun  2 2021, 10:49:15) 
 [GCC 9.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
->>> import requests
->>> from bs4 import BeautifulSoup
->>> url = "https://scrapingclub.com/exercise/detail_basic/"
->>> soup = BeautifulSoup(url.text, "lxml")
+>>> import requests # импорт необходимых библиотек для добычи данных
+>>> from bs4 import BeautifulSoup 
+>>> url = "https://scrapingclub.com/exercise/detail_basic/" # ресурс для тренировок
+>>> soup = BeautifulSoup(url.text, "lxml") # без ошибок никуда
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 AttributeError: 'str' object has no attribute 'text'
->>> response = requests.get(url)
->>> soup = BeautifulSoup(url.text, "lxml")
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-AttributeError: 'str' object has no attribute 'text'
->>> print(soup)
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-NameError: name 'soup' is not defined
+>>> response = requests.get(url) 
 >>> soup = BeautifulSoup(response.text, "lxml")
->>> print(soup)
+>>> print(soup) # получаем структуру html-файла из которого в дальнейшем будем вытаскивать данные
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -218,10 +210,9 @@ NameError: name 'soup' is not defined
 <title>Basic Info Scraping | ScrapingClub</title>
 >>> soup.title.name
 'title'
->>> soup.title.time
->>> soup.title.string
+>>> soup.title.string 
 'Basic Info Scraping | ScrapingClub'
->>> soup.h1
+>>> soup.h1 # так не правильно! 
 >>> print(soup.h1)
 None
 >>> print(soup.p)
@@ -296,18 +287,9 @@ NameError: name 'p' is not defined
 </p>, <p>Learn to scrape data behind a captcha</p>, <p>
 <a class="" href="/exercise/detail_sign/">Decode minified javascript</a>
 </p>, <p>Learn how to analyze minimized or compressed javascript</p>, <p class="m-0 text-center text-white">Made with <span class="sh-red">❤</span> by <a href="https://blog.michaelyin.info/">MichaelYin</a></p>]
->>> soup.find_all('p', class_'text')
-  File "<stdin>", line 1
-    soup.find_all('p', class_'text')
-                             ^
-SyntaxError: invalid syntax
 >>> soup.find_all('p', class_='text')
 []
->>> soup.find_all('p'.text)
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-AttributeError: 'str' object has no attribute 'text'
->>> soupText = soup.find_all('p')
+>>> soupText = soup.find_all('p') # луяше использовать переменные и выведем просто текст
 >>> for i in soupText:
 ...     print(i.text)
 ... 
